@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zadatak1.1</title>
+      <style>
+      form{width:30%;float: left; position: absolute;}
+      #prompt{display: none; color:red ;padding: 0; margin: 0}
+      </style>
+</head>
+<body>
+      <form id="create" action="get">
+              <fieldset>
+                  <legend>Add new actor</legend>
+                  <p>
+                      <label for="actorId">ID:</label> <br>
+                      <input type="text" name="actorId" id="idCreate">
+                  </p>
+                  <p id="prompt">This ID already exist</p>
+                  <p>
+                      <label for="firstname">First Name:</label> <br>
+                      <input type="text" name="firstname" id="firstname">
+                  </p>
+                  <p>
+                      <label for="lastname">Last Name:</label> <br>
+                      <input type="text" name="lastname" id="lastname">
+                  </p>
+                  <p>
+                      <label for="bio">Biography:</label><br>
+                      <textarea name="bio" id="bio" cols="30" rows="2"></textarea>
+                  </p>
+                  <p>
+                      <label for="birthDate">Date of birth:</label><br>
+                      <input type="date" name="birthDate" id="birthDate">
+                  </p>
+                  <p>
+                      <input type="submit" value="Submit">
+                      <input type="reset" value="Cancel">
+                  </p>
+                      
+              </fieldset>
+          </form>
+  <script>
+
+let loadFromLocalStorage=function (naziv) {
+  return   JSON.parse(localStorage.getItem(naziv));
+}
+let saveToLocalStorage=function saveToLocalStorage(naziv,objekat){
+  localStorage.setItem(naziv, JSON.stringify(objekat));   
+}
+
+let allActors =loadFromLocalStorage("allActors"); 
+
+let createOneActor=function  () {
+  let name=document.getElementById("firstname").value;
+  let lastName=document.getElementById("lastname").value;
+  let bio=document.getElementById("bio").value;
+  let birthDate=document.getElementById("birthDate").value;
+  oneActor={name,lastName,bio,birthDate};
+
+  return oneActor;
+};
+let addActorToAllActors=function (actorId) {    
+  if(!allActors[actorId]){ 
+      allActors[actorId]=createOneActor();
+      return allActors;
+  }
+  else
+  {       
+      return document.getElementById("prompt").style.display="block";
+  }
+  
+}
+let updateActor=function (actorId,naziv,izmenjenaVrednost){
+  allActors[actorId][naziv]=izmenjenaVrednost;
+}
+let deleteActor=function (actorId) {
+  delete allActors[actorId];
+}
+document.getElementById("create").addEventListener("submit",function (e){
+  e.preventDefault();
+  addActorToAllActors(document.getElementById("idCreate").value);    
+  saveToLocalStorage('allActors',allActors);
+  document.getElementById("create").reset();
+  
+});
+
+
+
+  </script>
+    
+</body>
+</html>
