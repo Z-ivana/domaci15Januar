@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>zadatak1.1</title>
+    <title>zadatak1</title>
       <style>
-      form{width:30%;float: left; position: absolute;}
+        html{ box-sizing:border-box; }
+        *, *:before, *:after{ box-sizing:inherit; }
+      form{width:30%;float: left; position: relative;}
       #prompt{display: none; color:red ;padding: 0; margin: 0}
       </style>
 </head>
 <body>
+    
       <form id="create" action="get">
               <fieldset>
                   <legend>Add new actor</legend>
@@ -40,8 +43,28 @@
                       
               </fieldset>
           </form>
-  <script>
+          
+          <form action="get">
+              <fieldset>
+                  <legend>Add new movie</legend>
 
+                  <label for="movieId">Movie Id</label><br>
+                  <input type="text" name="movieId" id="movieId"><br><br>
+
+                  <label for="movieName">Movie name</label><br>
+                  <input type="text" name="movieName" id="movieName"><br><br>
+
+                
+                  <label for="actorsList">Add actors from list</label><br>
+                  <select name="actorsList" id="actorsList"><br><br>
+                  </select>
+
+                  <label for="zanr">Select genre</label><br>
+                  <select name="zanr" id="zanr"></select><br><br>
+
+                </fieldset>
+          </form>
+  <script>
 let loadFromLocalStorage=function (naziv) {
   return   JSON.parse(localStorage.getItem(naziv));
 }
@@ -84,6 +107,9 @@ document.getElementById("create").addEventListener("submit",function (e){
   document.getElementById("create").reset();
   
 });
+// lista glumaca u select listu
+//loadFromLocalStorage(allActors.)
+
 
 
 
